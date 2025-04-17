@@ -50,7 +50,9 @@ docker-compose up -d --build
 2. Realizará as devidas validações e, se estiver tudo certo, irá dividir os usuários em lotes de 500 (também pode ser facilmente alterado), visando inserções parciais para evitar problemas em caso de muitos usuários. 
 Cada lote terá seu próprio job e será colocado na fila no Redis para inserção assíncrona;
 
-3. No retorno do upload, é disponibilizado o array ``data`` contendo os IDs dos jobs para consulta posterior, utilizando o endpoint ``/api/import-status/{id}``.
+3. Salvará o arquivo no diretório ``storage/app/private``, para seguir o novo padrão recomendado do Laravel 12.x;
+
+4. No retorno do upload, é disponibilizado o array ``data`` contendo os IDs dos jobs para consulta posterior, utilizando o endpoint ``/api/import-status/{id}``.
 
 ### Endpoint ``/api/import-status/{id}``
 1. O ID deve ser um número inteiro positivo. É possível saber o ID de cada importação através do retorno do endpoint ``/api/upload``, no array ``data``.
