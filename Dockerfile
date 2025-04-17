@@ -21,8 +21,6 @@ RUN composer install --ignore-platform-reqs
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-RUN php artisan migrate
-
 EXPOSE 80
 
 # Comando padrão para iniciar o servidor

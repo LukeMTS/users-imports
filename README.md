@@ -33,6 +33,15 @@ docker-compose up -d --build
 ```
 - OBS.: Em alguns ambientes, o comando pode ter sido instalado como `docker compose` (sem hífen).
 
+#### 4. Rode as migrations:
+```bash
+docker exec -it users-importer-app php artisan migrate
+```
+
+#### 5. Deixe rodando o processamento das filas:
+```bash
+docker exec -it users-importer-app php artisan queue:work
+```
 
 ## Fluxo e explicação técnica
 ### Geral
