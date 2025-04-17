@@ -21,13 +21,15 @@ class FormatApiResponse
 
         if ($response instanceof JsonResponse && $this->isApiRequest($request)) {
             $original = $response->getData(true);
+            $statusCode = $original['status_code'] ?? $response->getStatusCode();
+            $isSuccess = $original['success'] ?? $statusCode < Response::HTTP_BAD_REQUEST;
 
             return response()->json([
-                'success' => false,
-                'status_code' => $original['status_code'] ?? $response->getStatusCode(),
+                'success' => $isSuccess,
+                'status_code' => $statusCode,
                 'message' => $original['message'] ?? null,
                 'data'  => $original['data'] ?? [],
-            ], $response->getStatusCode());
+            ], $statusCode);
         }
 
         return $response;

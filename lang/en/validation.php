@@ -165,7 +165,7 @@ return [
     'uuid' => 'The :attribute field must be a valid UUID.',
     'import_file' => [
         'error' => 'Error importing file',
-        'success' => 'File imported successfully',
+        'success' => 'File imported successfully, the processing may take a few minutes',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -179,8 +179,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'get_users' => [
+            'success' => 'Users listed successfully',
+            'empty' => 'No users found',
         ],
     ],
 

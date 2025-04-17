@@ -165,7 +165,7 @@ return [
     'uuid' => 'O campo :attribute deve ser um UUID válido.',
     'import_file' => [
         'error' => 'Erro ao importar o arquivo',
-        'success' => 'Arquivo importado com sucesso',
+        'success' => 'Arquivo importado com sucesso, o processamento pode levar alguns minutos',
         'empty' => 'Nenhum usuário encontrado no arquivo',
     ],
 
@@ -181,8 +181,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'get_users' => [
+            'success' => 'Usuários listados com sucesso',
+            'empty' => 'Nenhum usuário encontrado',
         ],
     ],
 
@@ -197,6 +198,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'file' => 'file (arquivo)',
+        'name' => 'name (nome)',
+        'email' => 'email (e-mail)',
+        'birthdate' => 'birthdate (data de nascimento)',
+    ],
 
 ];

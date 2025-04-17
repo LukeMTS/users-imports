@@ -8,6 +8,7 @@ use App\Services\UsersCsvValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -20,9 +21,20 @@ class UserController extends Controller
 
     public function index(): JsonResponse
     {
-        $users = User::paginate(10);
+        $users = User::select('name', 'email', 'birthdate')->simplePaginate(15);
 
-        return response()->json($users);
+        if ($users->isEmpty()) {
+            return response()->json([
+                'success' => true,
+                'message' => __('validation.custom.get_users.empty'),
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('validation.custom.get_users.success'),
+            'data' => $users,
+        ]);
     }
 
     public function upload(UploadUsersRequest $request): JsonResponse
@@ -48,12 +60,13 @@ class UserController extends Controller
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            User::insert($users);
+            $fileName = 'users-' . now()->timestamp . '.csv';
+            $file->storeAs('uploads', $fileName);
 
             return response()->json([
                 'success' => true,
                 'message' => __('validation.import_file.success'),
-            ], Response::HTTP_OK);
+            ]);
         } catch (\Exception $e) {
             Log::error($e);
 
