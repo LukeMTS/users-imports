@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UploadUsersRequest;
+use App\Jobs\ImportUsersJob;
 use App\Models\User;
 use App\Services\UsersCsvValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -60,8 +60,12 @@ class UserController extends Controller
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            $fileName = 'users-' . now()->timestamp . '.csv';
-            $file->storeAs('uploads', $fileName);
+            $file->store();
+
+            // Importa os usuários em lotes de 500
+            collect($users)
+                ->chunk(500)
+                ->each(fn ($chunk) => ImportUsersJob::dispatch($chunk->toArray()));
 
             return response()->json([
                 'success' => true,
