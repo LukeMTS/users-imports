@@ -167,6 +167,13 @@ return [
         'error' => 'Error importing file',
         'success' => 'File imported successfully, the processing may take a few minutes',
     ],
+    'import_status' => [
+        'not_found' => 'Import not found',
+        'pending' => 'Import pending',
+        'processing' => 'Import processing',
+        'completed' => 'Import completed',
+        'failed' => 'Import failed',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

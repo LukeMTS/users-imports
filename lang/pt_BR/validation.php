@@ -168,6 +168,13 @@ return [
         'success' => 'Arquivo importado com sucesso, o processamento pode levar alguns minutos',
         'empty' => 'Nenhum usuário encontrado no arquivo',
     ],
+    'import_status' => [
+        'not_found' => 'Importação não encontrada',
+        'pending' => 'Importação pendente',
+        'processing' => 'Importação em processamento',
+        'completed' => 'Importação concluída',
+        'failed' => 'Importação falhou',
+    ],
 
     /*
     |--------------------------------------------------------------------------
